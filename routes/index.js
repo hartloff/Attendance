@@ -4,42 +4,50 @@ var fs = require("fs");
 var router = express.Router();
 var app = express();
 
-function scan_to_ubit(scan){
-  var person_number = 2;
+function scan_to_ubit(scan) {
+    var person_number = 2;
 
-  return 'error';
+    return 'error';
 }
 
 /* GET home page. */
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
 
     var ubit = "nothing";
     var db = req.db;
     var collection = db.get('stuff');
-    collection.find({},{},function(e,docs){
+    collection.find({}, {}, function (e, docs) {
         ubit = docs.toJSON();
-      });
+    });
 
-  res.render('index', { title: 'Scan For Credit', last_user: ubit, image_url:'https://upload.wikimedia.org/wikipedia/commons/b/b5/Xkcd_philosophy.png' });
+    res.render('index', {
+        title: 'Scan For Credit',
+        last_user: collection.toString(),
+        image_url: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Xkcd_philosophy.png'
+    });
 });
 
 
-router.post('/', function(req, res) {
-  //res.redirect('/');
+router.post('/', function (req, res) {
+    //res.redirect('/');
 
-  var dir = __dirname;
-  var filename = "/hackathon";
-  var the_response = 'error';
+    var dir = __dirname;
+    var filename = "/hackathon";
+    var the_response = 'error';
 
-  var ubit = scan_to_ubit(req.body.scan);
-  if(ubit == "error"){
-    ubit = req.body.scan;
-  }
+    var ubit = scan_to_ubit(req.body.scan);
+    if (ubit == "error") {
+        ubit = req.body.scan;
+    }
 
 
-  fs.appendFile(dir + filename, '\n' + ubit);
+    fs.appendFile(dir + filename, '\n' + ubit);
 
-  res.render('index', { title: 'Scan For Credit', last_user: ubit, image_url:'http://imgs.xkcd.com/comics/old_days_2x.png' });
+    res.render('index', {
+        title: 'Scan For Credit',
+        last_user: ubit,
+        image_url: 'http://imgs.xkcd.com/comics/old_days_2x.png'
+    });
 });
 
 module.exports = router;
