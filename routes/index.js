@@ -29,7 +29,7 @@ router.post('/', function(req, res) {
 
   fs.appendFile(dir + filename, '\n' + ubit);
 
-  res.send(the_response);
+  res.render('index', { title: 'Scan For Credit', last_user: ubit, image_url:'http://imgs.xkcd.com/comics/old_days_2x.png' });
 });
 
 module.exports = router;
