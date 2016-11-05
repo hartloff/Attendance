@@ -1,5 +1,6 @@
 var express = require('express');
 var fs = require("fs");
+
 var router = express.Router();
 var app = express();
 
@@ -11,8 +12,17 @@ function scan_to_ubit(scan){
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Scan For Credit', last_user: 'ubit', image_url:'http://imgs.xkcd.com/comics/old_days_2x.png' });
+
+    var ubit = "nothing";
+    var db = req.db;
+    var collection = db.get('stuff');
+    collection.find({},{},function(e,docs){
+      ubit = docs
+      });
+
+  res.render('index', { title: 'Scan For Credit', last_user: ubit, image_url:'http://imgs.xkcd.com/comics/old_days_2x.png' });
 });
+
 
 router.post('/', function(req, res) {
   //res.redirect('/');
