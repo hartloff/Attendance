@@ -1,5 +1,11 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    div(class='container')
+        p= 'You get credit: ' + last_user
+        img(src=image_url, class='img-responsive')
+        h1= 'Scan card for credit'
+        form(action='', method='post')
+            input(type='text', id='scan', name='scan')
+            br
+            input(type='submit', values='submit')
