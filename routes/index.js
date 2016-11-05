@@ -16,7 +16,7 @@ router.get('/', function(req, res) {
     var ubit = "nothing";
     var db = req.db;
     var collection = db.get('stuff');
-    collection.find({},{},function(e,docs){
+    db.stuff.find({},{},function(e,docs){
       ubit = docs;
       });
 
