@@ -16,8 +16,8 @@ router.get('/', function(req, res) {
     var ubit = "nothing";
     var db = req.db;
     var collection = db.get('stuff');
-    db.stuff.find({},{},function(e,docs){
-      ubit = docs;
+    collection.find({},{},function(e,docs){
+        ubit = docs.toJSON();
       });
 
   res.render('index', { title: 'Scan For Credit', last_user: ubit, image_url:'https://upload.wikimedia.org/wikipedia/commons/b/b5/Xkcd_philosophy.png' });
