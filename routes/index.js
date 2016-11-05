@@ -17,7 +17,7 @@ router.get('/', function(req, res) {
     var db = req.db;
     var collection = db.get('stuff');
     collection.find({},{},function(e,docs){
-      ubit = docs
+      ubit = docs.toString();
       });
 
   res.render('index', { title: 'Scan For Credit', last_user: ubit, image_url:'http://imgs.xkcd.com/comics/old_days_2x.png' });
