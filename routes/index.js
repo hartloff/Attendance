@@ -20,7 +20,7 @@ router.get('/', function(req, res) {
       ubit = docs.toString();
       });
 
-  res.render('index', { title: 'Scan For Credit', last_user: ubit, image_url:'http://imgs.xkcd.com/comics/old_days_2x.png' });
+  res.render('index', { title: 'Scan For Credit', last_user: ubit, image_url:'https://en.wikipedia.org/wiki/Xkcd#/media/File:Xkcd_philosophy.png' });
 });
 
 
