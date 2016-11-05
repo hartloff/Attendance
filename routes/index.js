@@ -17,10 +17,10 @@ router.get('/', function(req, res) {
     var db = req.db;
     var collection = db.get('stuff');
     collection.find({},{},function(e,docs){
-      ubit = docs.toString();
+      ubit = docs;
       });
 
-  res.render('index', { title: 'Scan For Credit', last_user: ubit, image_url:'https://en.wikipedia.org/wiki/Xkcd#/media/File:Xkcd_philosophy.png' });
+  res.render('index', { title: 'Scan For Credit', last_user: ubit, image_url:'https://upload.wikimedia.org/wikipedia/commons/b/b5/Xkcd_philosophy.png' });
 });
 
 
