@@ -2,8 +2,11 @@ extends layout
 
 block content
     div(class='container')
-        p= 'You get credit: ' + last_user
-        img(src=image_url, class='img-responsive')
+        br
+        h3= 'Points for ' + last_user
+        //img(src=image_url, class='img-responsive')
+        br
+        br
         h1= 'Scan card for credit'
         form(action='', method='post')
             input(type='text', id='scan', name='scan')
