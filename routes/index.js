@@ -37,16 +37,16 @@ function scan_to_ubit(scan) {
 /* GET home page. */
 router.get('/', function (req, res) {
 
-    //var ubit = "nothing";
-    //var db = req.db;
-    //var collection = db.get('stuff');
-    //collection.find({}, {}, function (e, docs) {
-    //    ubit = docs.toJSON();
-    //});
+    var ubit = "nothing";
+    var db = req.db;
+    var collection = db.get('stuff');
+    collection.find({}, {}, function (e, docs) {
+        ubit = docs.toJSON();
+    });
 
     res.render('index', {
         title: 'Scan For Credit',
-        last_user: ''
+        last_user: ubit
     });
 });
 
