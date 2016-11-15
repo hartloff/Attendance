@@ -25,7 +25,7 @@ function scan_to_ubit(scan) {
         var values = line.split('\t');
         console.log(values);
         console.log(person_number);
-        if(values[0] === person_number) {
+        if (values[0] === person_number) {
             ubit = values[2];
             name = values[1];
         }
@@ -34,19 +34,23 @@ function scan_to_ubit(scan) {
     return [ubit, name, person_number];
 }
 
-/* GET home page. */
-router.get('/', function (req, res) {
+router.get('/stuff', function (req, res) {
 
-    var ubit = "nothing";
     var db = req.db;
     var collection = db.get('stuff');
     collection.find({}, {}, function (e, docs) {
-        ubit = docs.toJSON();
+        res.render('stuff', {
+            "stuff": docs
+        });
     });
+});
+
+/* GET home page. */
+router.get('/', function (req, res) {
 
     res.render('index', {
         title: 'Scan For Credit',
-        last_user: ubit
+        last_user: ''
     });
 });
 

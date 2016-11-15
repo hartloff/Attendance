@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    div(class='container')
+        br
+        h3= 'From MongoDB: ' + stuff
+        each thing, i in stuff
+            h1=thing.data
+            p=thing.id
