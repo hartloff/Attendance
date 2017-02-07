@@ -38,10 +38,10 @@ function scan_to_ubit(scan) {
 router.get('/stuff', function (req, res) {
 
     var db = req.db;
-    var collection = db.get('stuff');
+    var collection = db.get('cse115lab');
     collection.find({}, {}, function (e, docs) {
         res.render('stuff', {
-            "stuff": docs
+            //"stuff": docs
         });
     });
 });
