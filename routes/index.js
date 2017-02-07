@@ -41,7 +41,7 @@ router.get('/stuff', function (req, res) {
     var collection = db.get('cse115lab');
     collection.find({}, {}, function (e, docs) {
         res.render('stuff', {
-            //"stuff": docs
+            "stuff": docs
         });
     });
 });
