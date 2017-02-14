@@ -6,9 +6,43 @@ block content
         h3= 'Points for ' + last_user
         //img(src=image_url, class='img-responsive')
         br
+        | Lab flow:
+        ul
+            li='Swipe for attendance as students arrive'
+            li='Swipe for completion as students finish the lab. These students can leave if they want'
+            li='Swipe for completion as students finish the lab. These students can leave if they want'
+            li='At the end of lab swipe remaining students as attempted if they have not finished AND put in an honest 2 hours of effort'
         br
-        h1= 'Scan card for credit'
+        div(class='alert alert-info')
+            |  Multiple swipes can be made per student. The best swipe will be counted for their grade.
+        div(class='alert alert-info')
+            |  If a student doesn't have their card, manually type their UBIT and click submit. If their full name appears at the top of the page then they were successfully found in the database.
+        br
+        h1= 'Scan UB card for credit'
         form(action='', method='post')
-            input(type='text', id='scan', name='scan')
+            select(name="assignment")
+                option(value="lab2") Lab 2
+                option(value="lab1") Lab 1
+
+            input(type="radio", name="points", id="attended", value="attended")
+            |  Attended today's lab
+            br
+            input(type="radio", name="points", id="attempted", value="tried")
+            |  Made an honest attempt to complete today's lab
+            br
+            input(type="radio", name="points", id="completed", value="complete")
+            |  Completed today's lab
+            br
+            br
+            input(type'text', id='notes', name='notes')
+            |  Notes for Jesse (optional)
+            br
+            br
+            input(type='text', id='scan', name='scan' autofocus)
+            |  <--- Scan card with focus here
+            br
             br
             input(type='submit', values='submit')
+        br
+        br
+

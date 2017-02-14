@@ -7,14 +7,16 @@ var app = express();
 // This function is gross.. but it works
 function scan_to_ubit(scan) {
     var splits = scan.split('^');
+    var person_number = "";
     if (splits.length < 3) {
-        return [scan, scan, scan];
+        person_number = scan;
+    }else {
+        var person_number = splits[2];
+        if (person_number.length < 23) {
+            return [scan, scan, scan];
+        }
+        person_number = person_number.substring(14, 22);
     }
-    var person_number = splits[2];
-    if (person_number.length < 23) {
-        return [scan, scan, scan];
-    }
-    person_number = person_number.substring(14, 22);
     var name = person_number;
     var ubit = person_number;
 
@@ -29,29 +31,31 @@ function scan_to_ubit(scan) {
         if (values[0] === person_number) {
             ubit = values[2];
             name = values[1];
+            break;
         }
     }
 
     return [ubit, name, person_number];
 }
 
-router.get('/stuff', function (req, res) {
-
-    var db = req.db;
-    var collection = db.get('cse115lab');
-    collection.find({}, {}, function (e, docs) {
-        res.render('stuff', {
-            "stuff": docs
-        });
-    });
-});
+//router.get('/stuff', function (req, res) {
+//
+//    var db = req.db;
+//    var collection = db.get('cse115lab');
+//    collection.find({}, {}, function (e, docs) {
+//        res.render('stuff', {
+//            "stuff": docs
+//        });
+//    });
+//});
 
 /* GET home page. */
 router.get('/', function (req, res) {
 
     res.render('index', {
         title: 'Scan For Credit',
-        last_user: ''
+        last_user: '',
+        last_scan: 'attended'
     });
 });
 
@@ -74,6 +78,17 @@ router.post('/', function (req, res) {
     }
 
     if (req.body.hasOwnProperty("scan")) {
+        var points = 'none';
+        if (req.body.hasOwnProperty("points")){
+            var points = req.body.points;
+        }
+        var notes = 'none';
+        if (req.body.hasOwnProperty("notes")){
+            var notes = req.body.notes;
+        }
+        if (req.body.hasOwnProperty("assignment")){
+            var assignment = req.body.assignment;
+        }
         var ubit = scan_to_ubit(req.body.scan);
         if (ubit[0].length > 1) {
             name = ubit[1];
@@ -85,16 +100,23 @@ router.post('/', function (req, res) {
             var collection = db.get('cse115lab');
             collection.insert({
                 "ubit": ubit,
-                "time": Date.now()
+                "points":points,
+                "notes":notes,
+                "time": Date.now(),
+                "ip": req.ip,
+                "assignment":assignment
             });
         }
 
     }
     res.render('index', {
         title: 'Scan For Credit',
-        last_user: name
+        last_user: name,
+        last_scan: points
     });
 });
+
+
 
 //router.post('/', function (req, res) {
 //    //res.redirect('/');
